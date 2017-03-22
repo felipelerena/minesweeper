@@ -17,3 +17,5 @@ Log
 ===
 I will start by creating the repo, setting the basic structure for the project.
 
+The "game part" took me more than expected. I still don't have a client and persistance.
+I don't know if I will have time to validate anything or handling many errors.

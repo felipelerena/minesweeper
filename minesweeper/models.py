@@ -1,6 +1,7 @@
 from random import shuffle
 
-from constants import MINE, EMPTY_CELL
+from constants import (ACTION_CLICK, ACTION_FLAG, ACTION_QUESTION, EMPTY_CELL,
+                       MINE)
 
 
 class Game:
@@ -19,7 +20,7 @@ class Game:
         self.id = uid
         self._num_rows = rows
         self._num_cols = cols
-        #TODO: should validate the number of mines
+        # TODO: should validate the number of mines
         self._num_mines = mines
 
         self.is_over = False
@@ -31,7 +32,7 @@ class Game:
         for row in self._cells:
             cols = []
             for cell in row:
-                cols.append(cell.to_dict())
+                cols.append(cell.to_dict(self.is_over))
             cells.append(cols)
 
         ret = {
@@ -87,9 +88,23 @@ class Game:
         Arguments:
             cell - a Cell instance.
         """
-        neighbors = []
+        neighbors = self.get_neighbor_cells(cell)
         proximity = 0
 
+        # now we add the proximity and have the magic number
+        for neighbor in neighbors:
+            if neighbor.is_mine:
+                proximity += 1
+
+        cell._proximity = proximity
+
+    def get_neighbor_cells(self, cell):
+        """Get the neighbors for the clicked cell.
+
+        Arguments:
+            cell -- a Cell instance
+        """
+        neighbors = []
         # we get the index for the first and last columns of the neighbors
         first_col = cell.col - 1 if cell.col > 0 else cell.col
         last_col = cell.col + 2 if cell.col < self._num_rows else cell.col
@@ -108,13 +123,38 @@ class Game:
         if cell.col < self._num_rows - 1:
             neighbors.append(self._cells[cell.row][cell.col+1])
 
-        # now we add the proximity and have the magic number
+        return neighbors
+
+    def click_cell(self, row, col, action):
+        """Performs the click action over the cell.
+
+        Arguments:
+            row -- the row number.
+            col -- the column number.
+            action -- the action performed by the click action.
+        """
+        cell = self._cells[row][col]
+        # TODO: should show an error when already clicked?
+        if not cell.clicked:
+            if action == ACTION_FLAG:
+                cell.flagged = self.flagged
+            elif action == ACTION_QUESTION:
+                cell.question = True
+            elif action == ACTION_CLICK:
+                cell.clicked = True
+                if cell.is_mine:
+                    self.is_over = True
+                elif cell.is_empty:
+                    self.empty_cell_clicked(cell)
+            else:
+                cell.flagged = False
+                cell.question = False
+
+    def empty_cell_clicked(self, cell):
+        """Propagates the viral click of the empty cells."""
+        neighbors = self.get_neighbor_cells(cell)
         for neighbor in neighbors:
-            if neighbor.is_mine:
-                proximity += 1
-
-        cell._proximity = proximity
-
+            self.click_cell(neighbor.row, neighbor.col, ACTION_CLICK)
 
 
 class Cell:
@@ -132,8 +172,7 @@ class Cell:
         self._proximity = EMPTY_CELL
         self.flagged = False
         self.question = False
-        #FIXME: this should default to False
-        self.clicked = True
+        self.clicked = False
 
     @property
     def is_mine(self):
@@ -143,12 +182,16 @@ class Cell:
     def is_empty(self):
         return self._proximity == EMPTY_CELL
 
-    def to_dict(self):
-        """Dict representation of the cell."""
+    def to_dict(self, force=False):
+        """Dict representation of the cell.
+
+        Arguments:
+            force -- a boolean to always show the cell value.
+        """
         ret = {
             "row": self.row,
             "col": self.col,
-            "proximity": self._proximity if self.clicked else None,
+            "proximity": self._proximity if self.clicked or force else None,
             "flagged": self.flagged,
             "question": self.question,
         }

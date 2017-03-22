@@ -44,7 +44,17 @@ class GameResource(Resource):
         return game.to_dict()
 
 
+class CellResource(Resource):
+    def put(self, game_id, row, col):
+        # TODO: should validate request
+        form = request.form
+        game = _games[game_id]
+        game.click_cell(int(row), int(col), form["action"])
+        return game.to_dict()
+
+
 api.add_resource(GameResource, '/games/<game_id>')
+api.add_resource(CellResource, '/cells/<game_id>/<row>/<col>')
 
 
 

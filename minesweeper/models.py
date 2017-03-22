@@ -16,3 +16,13 @@ class Game:
         self._num_cols = cols
         self._num_mines = mines
 
+    def to_dict(self):
+        ret = {
+            "game_id": self.id,
+            "num_cols": self._num_cols,
+            "num_rows": self._num_rows,
+            "num_mines": self._num_mines
+        }
+
+        return ret
+

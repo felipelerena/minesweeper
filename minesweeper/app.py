@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from json import dumps
 
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Api, Resource
 
 from models import Game
@@ -12,7 +12,6 @@ api = Api(app)
 
 # We will have a dict until I implement persistence
 _games = {}
-_games["1"] = Game(1, 10, 10, 5)
 
 
 class GameResource(Resource):
@@ -26,13 +25,22 @@ class GameResource(Resource):
         ret = None
         game = _games.get(game_id)
         if game is not None:
-            ret = {
-                "game_id": game_id,
-                "num_cols": game._num_cols,
-                "num_rows": game._num_rows,
-                "num_mines": game._num_mines
-            }
+            ret = game.to_dict()
         return ret
+
+    def put(self, game_id):
+        """Creates a game.
+
+        Arguments:
+            game_id -- unique id for a game.
+        """
+        # FIXME: the client setting the id of the new game is not the best idea
+        # TODO: should validate something
+        form = request.form
+        game = Game(game_id, int(form['rows']), int(form['cols']),
+                    int(form['mines']))
+        _games[game_id] = game
+        return game.to_dict()
 
 
 api.add_resource(GameResource, '/games/<game_id>')

@@ -1,0 +1,2 @@
+EMPTY_CELL = 0
+MINE = 9

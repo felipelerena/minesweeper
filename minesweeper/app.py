@@ -39,6 +39,7 @@ class GameResource(Resource):
         form = request.form
         game = Game(game_id, int(form['rows']), int(form['cols']),
                     int(form['mines']))
+        game.init_cells()
         _games[game_id] = game
         return game.to_dict()
 

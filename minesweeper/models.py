@@ -137,7 +137,7 @@ class Game:
         # TODO: should show an error when already clicked?
         if not cell.clicked:
             if action == ACTION_FLAG:
-                cell.flagged = self.flagged
+                cell.flagged = True
             elif action == ACTION_QUESTION:
                 cell.question = True
             elif action == ACTION_CLICK:

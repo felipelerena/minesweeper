@@ -1,0 +1,36 @@
+td{
+    width: 25px;
+    height: 25px;
+    text-align:center;
+    cursor: pointer;
+}
+.prox{
+    background: #ccc;
+}
+.prox1{
+    color: #29a807;
+}
+.prox2{
+    color: #9ab252;
+}
+.prox3{
+    color: #71b28e;
+}
+.prox4{
+    color: #56b2e3;
+}
+.prox5{
+    color: #352cf6;
+}
+.prox6{
+    color: #f62c84;
+}
+.prox7{
+    color: #f62c35;
+}
+.prox8{
+    color: #731115;
+}
+.prox9{
+    background: #f43;
+}

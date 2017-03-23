@@ -4,6 +4,7 @@
         <script type="text/javascript" src="/static/js/handlebars.min.js"></script>
         <script type="text/javascript" src="/static/js/superagent.js"></script>
         <script type="text/javascript" src="/static/js/base.js"></script>
+        <link rel="stylesheet" href="/static/css/mines.css">
         <script type="text/javascript" charset="utf-8">
 			document.addEventListener('DOMContentLoaded', init, false);
         </script>
@@ -13,37 +14,29 @@
                 {{#each cells}}
                     <tr>
                         {{#each .}}
-                        <td class="cell prox{{proximity}}" data-clicked="{{clicked}}" data-row="{{row}}" data-col="{{col}}">
-                            {{#if is_mine}}
-                                💣
-                            {{else}}
-                                {{#if proximity}}
-                                    {{proximity}}
+                            <td class="cell prox{{proximity}}" data-clicked="{{clicked}}" data-row="{{row}}" data-col="{{col}}" data-flagged="{{flagged}}">
+                                {{#if is_mine}}
+                                    💣
+                                {{else}}
+                                    {{#if proximity}}
+                                        {{proximity}}
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
+                                {{#if flagged}}
+                                    🚩
+                                {{/if}}
                             </td>
                          {{/each}}
                     </tr>
                 {{/each}}
             </table>
         </script>
-        <style>
-            td{
-                width: 25px;
-                height: 25px;
-                text-align:center;
-                cursor: pointer;
-            }
-            .prox{
-                background: #ccc;
-            }
-            .prox9{
-                background: #f43;
-            }
-        </style>
     </head>
     <body>
         <h1>Minesweeper</h1>
+        <div class="controls">
+            <input type="checkbox" id="flag"><label for="flag">🚩</label>
+        </div>
         <div id="game">
         </div>
 

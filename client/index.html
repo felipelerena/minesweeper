@@ -7,10 +7,46 @@
         <script type="text/javascript" charset="utf-8">
 			document.addEventListener('DOMContentLoaded', init, false);
         </script>
+        <script id="tmpl_game" type="text/x-handlebars-template">
+            <!-- Yes, I'm trying to get a job in 2017 using an HTML table.-->
+            <table>
+                {{#each cells}}
+                    <tr>
+                        {{#each .}}
+                        <td class="cell prox{{proximity}}" data-clicked="{{clicked}}" data-row="{{row}}" data-col="{{col}}">
+                            {{#if is_mine}}
+                                💣
+                            {{else}}
+                                {{#if proximity}}
+                                    {{proximity}}
+                                {{/if}}
+                            {{/if}}
+                            </td>
+                         {{/each}}
+                    </tr>
+                {{/each}}
+            </table>
+        </script>
+        <style>
+            td{
+                width: 25px;
+                height: 25px;
+                text-align:center;
+                cursor: pointer;
+            }
+            .prox{
+                background: #ccc;
+            }
+            .prox9{
+                background: #f43;
+            }
+        </style>
     </head>
     <body>
         <h1>Minesweeper</h1>
         <div id="game">
         </div>
+
+        
     </body>
 </html>

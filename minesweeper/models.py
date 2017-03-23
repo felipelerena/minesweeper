@@ -195,6 +195,7 @@ class Cell:
             "flagged": self.flagged,
             "question": self.question,
             "is_mine": force and self.is_mine,
+            "clicked": self.clicked,
         }
         return ret
 

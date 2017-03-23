@@ -30,9 +30,8 @@ class GameResource(Resource):
     def post(self):
         """Creates a game.
         """
-        # FIXME: the client setting the id of the new game is not the best idea
         # TODO: should validate something
-        form = request.form
+        form = request.json
         game_id = str(uuid1())
         game = Game(game_id, int(form['rows']), int(form['cols']),
                     int(form['mines']))
@@ -44,7 +43,7 @@ class GameResource(Resource):
 class CellResource(Resource):
     def put(self, game_id, row, col):
         # TODO: should validate request
-        form = request.form
+        form = request.json
         game = _games[game_id]
         game.click_cell(int(row), int(col), form["action"])
         return game.to_dict()

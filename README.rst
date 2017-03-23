@@ -21,3 +21,5 @@ The "game part" took me more than expected. I still don't have a client and pers
 I don't know if I will have time to validate anything or handling many errors.
 
 I fixed the API, now I'm starting with the client.
+
+I created a basic client, i'm serving the static files from the same flask instance because of time constraints.

@@ -141,9 +141,10 @@ class Game:
             elif action == ACTION_QUESTION:
                 cell.question = True
             elif action == ACTION_CLICK:
+                cell.flagged = False
                 cell.clicked = True
                 if cell.is_mine:
-                    self.is_over = True
+                    self.end_game()
                 elif cell.is_empty:
                     self.empty_cell_clicked(cell)
             else:
@@ -155,6 +156,13 @@ class Game:
         neighbors = self.get_neighbor_cells(cell)
         for neighbor in neighbors:
             self.click_cell(neighbor.row, neighbor.col, ACTION_CLICK)
+
+    def end_game(self):
+        self.is_over = True
+        for row in self._cells:
+            for cell in row:
+                cell.flagged = False
+
 
 
 class Cell:

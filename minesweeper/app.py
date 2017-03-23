@@ -6,7 +6,7 @@ from flask_restful import Api, Resource
 from models import Game
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../client")
 api = Api(app)
 
 # We will have a dict until I implement persistence
@@ -53,6 +53,12 @@ api.add_resource(GameResource, '/games', endpoint="game")
 api.add_resource(GameResource, '/games/<game_id>')
 api.add_resource(CellResource, '/cells/<game_id>/<row>/<col>')
 
+# static files, I would love to have the time to serve this somewhere else
+app.add_url_rule('/static/<path:filename>', endpoint='static',
+                    view_func=app.send_static_file)
+@app.route('/')
+def index():
+    return app.send_static_file("index.html")
 
 
 if __name__ == '__main__':

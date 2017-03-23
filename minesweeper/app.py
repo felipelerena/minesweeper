@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-from json import dumps
-
+from uuid import uuid1
 from flask import Flask, request
 from flask_restful import Api, Resource
 
@@ -28,15 +27,13 @@ class GameResource(Resource):
             ret = game.to_dict()
         return ret
 
-    def put(self, game_id):
+    def post(self):
         """Creates a game.
-
-        Arguments:
-            game_id -- unique id for a game.
         """
         # FIXME: the client setting the id of the new game is not the best idea
         # TODO: should validate something
         form = request.form
+        game_id = str(uuid1())
         game = Game(game_id, int(form['rows']), int(form['cols']),
                     int(form['mines']))
         game.init_cells()
@@ -53,10 +50,11 @@ class CellResource(Resource):
         return game.to_dict()
 
 
+api.add_resource(GameResource, '/games', endpoint="game")
 api.add_resource(GameResource, '/games/<game_id>')
 api.add_resource(CellResource, '/cells/<game_id>/<row>/<col>')
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

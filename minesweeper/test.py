@@ -1,4 +1,4 @@
-from requests import put, get
+from requests import put, get, post
 
 
 def print_board(res):
@@ -11,18 +11,20 @@ def print_board(res):
 
 if __name__ == '__main__':
     print("creating new game")
-    res = put("http://localhost:5000/games/1",
+    res = post("http://localhost:5000/games",
               data={"rows": 20, "cols": 20, "mines": 20})
 
-    print("getting game 1")
-    res = get("http://localhost:5000/games/1")
+    board_data = res.json()
+    game_id = board_data["game_id"]
+    print("getting game")
+    res = get("http://localhost:5000/games/{}".format(game_id))
     print_board(res)
 
     print("clicking cell 0 0")
-    res = put("http://localhost:5000/cells/1/0/0", data={"action": "click"})
+    res = put("http://localhost:5000/cells/{}/0/0".format(game_id), json={"action": "click"})
     print_board(res)
 
     print("clicking cell 5 5")
-    res = put("http://localhost:5000/cells/1/5/5", data={"action": "click"})
+    res = put("http://localhost:5000/cells/{}/5/5".format(game_id), json={"action": "click"})
     print_board(res)
 

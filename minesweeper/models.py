@@ -194,6 +194,7 @@ class Cell:
             "proximity": self._proximity if self.clicked or force else None,
             "flagged": self.flagged,
             "question": self.question,
+            "is_mine": force and self.is_mine,
         }
         return ret
 

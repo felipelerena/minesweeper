@@ -151,6 +151,8 @@ class Game:
                 cell.flagged = False
                 cell.question = False
 
+            self.check_if_over()
+
     def empty_cell_clicked(self, cell):
         """Propagates the viral click of the empty cells."""
         neighbors = self.get_neighbor_cells(cell)
@@ -159,9 +161,16 @@ class Game:
 
     def end_game(self):
         self.is_over = True
+
+    def check_if_over(self):
+        num_flags = 0
         for row in self._cells:
             for cell in row:
-                cell.flagged = False
+                if cell.flagged and cell.is_mine:
+                    num_flags += 1
+
+        if num_flags == self._num_mines:
+            self.end_game()
 
 
 

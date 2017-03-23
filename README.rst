@@ -23,3 +23,6 @@ I don't know if I will have time to validate anything or handling many errors.
 I fixed the API, now I'm starting with the client.
 
 I created a basic client, i'm serving the static files from the same flask instance because of time constraints.
+
+I finished the game. I didn't implement the question mark because I'm running out of time, but I think I can implement it in half an hour.
+The finished game doesn't look very nice, with the flag and the mine in the same cell. I can make that super nice in half an hour.

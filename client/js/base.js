@@ -6,7 +6,7 @@ function init(){
     */
     superagent
         .post('/games')
-        .send({"cols": 20, "rows": 20, "mines": 10})
+        .send({"cols": 20, "rows": 20, "mines": 30})
         .end(game_created);
 }
 

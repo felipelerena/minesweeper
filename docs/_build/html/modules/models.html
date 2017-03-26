@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>models module &#8212; Minesweeper 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-minesweeper.models">
+<span id="models-module"></span><h1>models module<a class="headerlink" href="#module-minesweeper.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="minesweeper.models.Cell">
+<em class="property">class </em><code class="descclassname">minesweeper.models.</code><code class="descname">Cell</code><span class="sig-paren">(</span><em>row</em>, <em>col</em><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="minesweeper.models.Cell.is_empty">
+<code class="descname">is_empty</code><a class="headerlink" href="#minesweeper.models.Cell.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="minesweeper.models.Cell.is_mine">
+<code class="descname">is_mine</code><a class="headerlink" href="#minesweeper.models.Cell.is_mine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.models.Cell.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Cell.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict representation of the cell.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>force &#8211; a boolean to always show the cell value.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="minesweeper.models.Game">
+<em class="property">class </em><code class="descclassname">minesweeper.models.</code><code class="descname">Game</code><span class="sig-paren">(</span><em>uid</em>, <em>rows</em>, <em>cols</em>, <em>mines</em><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Game" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Represents a single game.</p>
+<dl class="method">
+<dt id="minesweeper.models.Game.check_if_over">
+<code class="descname">check_if_over</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Game.check_if_over" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.models.Game.click_cell">
+<code class="descname">click_cell</code><span class="sig-paren">(</span><em>row</em>, <em>col</em>, <em>action</em><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Game.click_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the click action over the cell.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>row &#8211; the row number.
+col &#8211; the column number.
+action &#8211; the action performed by the click action.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.models.Game.empty_cell_clicked">
+<code class="descname">empty_cell_clicked</code><span class="sig-paren">(</span><em>cell</em><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Game.empty_cell_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Propagates the viral click of the empty cells.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.models.Game.end_game">
+<code class="descname">end_game</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Game.end_game" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.models.Game.get_neighbor_cells">
+<code class="descname">get_neighbor_cells</code><span class="sig-paren">(</span><em>cell</em><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Game.get_neighbor_cells" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the neighbors for the clicked cell.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd>cell &#8211; a Cell instance</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.models.Game.init_cells">
+<code class="descname">init_cells</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Game.init_cells" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the cells for the board, add the mines, assign proximity.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.models.Game.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minesweeper.models.Game.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict representation of the game.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/models.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Felipe Lerena.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

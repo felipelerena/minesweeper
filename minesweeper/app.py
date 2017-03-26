@@ -14,7 +14,9 @@ _games = {}
 
 
 class GameResource(Resource):
+
     """Manages a single game."""
+
     def get(self, game_id):
         """Get the game public data.
 
@@ -28,8 +30,7 @@ class GameResource(Resource):
         return ret
 
     def post(self):
-        """Creates a game.
-        """
+        """Creates a game."""
         # TODO: should validate something
         form = request.json
         game_id = str(uuid1())
@@ -41,21 +42,32 @@ class GameResource(Resource):
 
 
 class CellResource(Resource):
+
+    """Manages the game cell interaction."""
+
     def put(self, game_id, row, col):
+        """Manages the user interaction with a cell.
+
+        Arguments:
+            game_id -- the game_id.
+            row -- the cell row.
+            col -- the cell col.
+        """
         # TODO: should validate request
         form = request.json
         game = _games[game_id]
         game.click_cell(int(row), int(col), form["action"])
         return game.to_dict()
 
-
+# adding the resources
 api.add_resource(GameResource, '/games', endpoint="game")
 api.add_resource(GameResource, '/games/<game_id>')
 api.add_resource(CellResource, '/cells/<game_id>/<row>/<col>')
 
+
 # static files, I would love to have the time to serve this somewhere else
 app.add_url_rule('/static/<path:filename>', endpoint='static',
-                    view_func=app.send_static_file)
+                 view_func=app.send_static_file)
 @app.route('/')
 def index():
     return app.send_static_file("index.html")

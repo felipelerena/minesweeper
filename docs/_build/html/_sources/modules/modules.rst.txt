@@ -1,0 +1,9 @@
+minesweeper
+===========
+
+.. toctree::
+   :maxdepth: 4
+
+   app
+   constants
+   models

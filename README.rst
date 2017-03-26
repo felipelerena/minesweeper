@@ -17,7 +17,7 @@ Log
 ===
 I will start by creating the repo, setting the basic structure for the project.
 
-The "game part" took me more than expected. I still don't have a client and persistance.
+The "game part" took me more than expected. I still don't have a client and persistence.
 I don't know if I will have time to validate anything or handling many errors.
 
 I fixed the API, now I'm starting with the client.
@@ -26,3 +26,5 @@ I created a basic client, i'm serving the static files from the same flask insta
 
 I finished the game. I didn't implement the question mark because I'm running out of time, but I think I can implement it in half an hour.
 The finished game doesn't look very nice, with the flag and the mine in the same cell. I can make that super nice in half an hour.
+
+Regarding persistence I'm out of time to implement my original idea: unsing flask_sqlalchemy to convert my curent models to SQLAlchemy models I think that can take me 45/60 mins.
